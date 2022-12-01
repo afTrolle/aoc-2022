@@ -1,10 +1,14 @@
+package day1
+
+import Day
+
 fun main() {
     Day1("Day01").run()
 }
 
-class Day1(file: String) : AOC<List<List<Int>>>(file) {
+class Day1(file: String) : Day<List<List<Int>>>(file) {
 
-    override fun parse(input: String): List<List<Int>> = input.split("^\\s*\$".toRegex(RegexOption.MULTILINE))
+    override fun parse(): List<List<Int>> = inputByGroups
         .map { elf -> elf.lines().mapNotNull { snack -> snack.toIntOrNull() } }
 
     override fun partOne(input: List<List<Int>>) = input.maxOfOrNull { it.sum() }

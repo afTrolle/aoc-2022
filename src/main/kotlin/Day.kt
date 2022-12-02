@@ -13,22 +13,22 @@ abstract class Day<R>(private val file: String) {
 
     val inputParsed by lazy(LazyThreadSafetyMode.NONE) { parse() }
 
-    fun run() {
-        println("$file partOne: ${partOne(inputParsed)}")
-        println("$file partTwo: ${partTwo(inputParsed)}")
+    fun solve() {
+        kotlin.runCatching { println("$file partOne: ${part1(inputParsed)}") }
+        kotlin.runCatching { println("$file partTwo: ${part2(inputParsed)}") }
     }
 
     abstract fun parse(): R
-    abstract fun partOne(input: R): Any?
-    abstract fun partTwo(input: R): Any?
+    abstract fun part1(input: R): Any?
+    abstract fun part2(input: R): Any?
 
     companion object {
         fun read(file: String): String {
-            val path = Files.find(
-                Path("src", "main", "kotlin"),
-                2,
-                { t: Path, _: BasicFileAttributes -> t.name == "$file.txt" }).findFirst().get()
-            return path.readText()
+            val searchPath = Path("src", "main", "kotlin")
+            return Files.find(searchPath, 2, { t: Path, _: BasicFileAttributes -> t.name == "$file.txt" })
+                .findFirst()
+                .get()
+                .readText()
         }
     }
 }

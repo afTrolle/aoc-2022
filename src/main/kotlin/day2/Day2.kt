@@ -12,11 +12,15 @@ fun main() {
 class Day2(input: String) : Day<List<Day2.Round>>(input) {
 
     enum class Hand(val opponent: Char, val player: Char, val score: Int) {
-        Rock('A', 'X', 1), Paper('B', 'Y', 2), Scissor('C', 'Z', 3)
+        Rock('A', 'X', 1),
+        Paper('B', 'Y', 2),
+        Scissor('C', 'Z', 3)
     }
 
     enum class Score(val score: Int, val input: Char) {
-        Win(6, 'Z'), Draw(3, 'Y'), Loss(0, 'X')
+        Win(6, 'Z'),
+        Draw(3, 'Y'),
+        Loss(0, 'X')
     }
 
     class Round(
@@ -45,7 +49,6 @@ class Day2(input: String) : Day<List<Day2.Round>>(input) {
     }
 
     override fun part1(input: List<Round>): Any = input.sumOf { it.scoreByHands }
-
     override fun part2(input: List<Round>): Any = input.sumOf { it.scoreByOutcome }
 
     companion object {

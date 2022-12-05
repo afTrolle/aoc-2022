@@ -9,9 +9,11 @@ import kotlin.io.path.readText
 abstract class Day<R>(private val file: String) {
     val input = read(file)
     val inputByLines by lazy(LazyThreadSafetyMode.NONE) { input.lines() }
-    val inputByGroups by lazy(LazyThreadSafetyMode.NONE) { input.split(lineSeparator() + lineSeparator()) }
+    val inputByGroups by lazy(LazyThreadSafetyMode.NONE) {
+        input.split(lineSeparator() + lineSeparator()).map { it.lines() }
+    }
 
-    val inputParsed by lazy(LazyThreadSafetyMode.NONE) { parse() }
+    val inputParsed get() = parse()
 
     fun solve() {
         kotlin.runCatching { println("$file partOne: ${part1(inputParsed)}") }

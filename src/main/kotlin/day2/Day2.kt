@@ -44,7 +44,7 @@ class Day2(input: String) : Day<List<Day2.Round>>(input) {
         val scoreByOutcome = handNeededOfOutcome + outcome.score
     }
 
-    override fun parse(): List<Round> = inputByLines.map {
+    override fun parseInput(): List<Round> = inputByLines.map {
         Round(handMap[it[0]]!!, handMap[it[2]]!!, gameOutComeMap[it[2]]!!)
     }
 

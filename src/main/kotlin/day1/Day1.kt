@@ -8,7 +8,7 @@ fun main() {
 
 class Day1(file: String) : Day<List<List<Int>>>(file) {
 
-    override fun parse(): List<List<Int>> = inputByGroups
+    override fun parseInput(): List<List<Int>> = inputByGroups
         .map { elf -> elf.mapNotNull { snack -> snack.toIntOrNull() } }
 
     override fun part1(input: List<List<Int>>) = input.maxOfOrNull { it.sum() }

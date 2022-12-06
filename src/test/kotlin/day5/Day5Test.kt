@@ -8,7 +8,7 @@ class Day5Test {
     @Test
     fun parse() {
         val day = Day5("Day05_sample")
-        val (state, actions) = day.inputParsed
+        val (state, actions) = day.parsedInput
 
 //            [D]
 //        [N] [C]
@@ -37,14 +37,14 @@ class Day5Test {
     @Test
     fun solve() {
         val day = Day5("Day05_sample")
-        val solution = day.part1(day.inputParsed)
+        val solution = day.part1(day.parsedInput)
         assertEquals("CMZ", solution)
     }
 
     @Test
     fun solve2() {
         val day = Day5("Day05_sample")
-        val solution = day.part2(day.inputParsed)
+        val solution = day.part2(day.parsedInput)
         assertEquals("MCD", solution)
     }
 }

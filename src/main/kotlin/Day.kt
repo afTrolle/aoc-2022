@@ -13,14 +13,14 @@ abstract class Day<R>(private val file: String) {
         input.split(lineSeparator() + lineSeparator()).map { it.lines() }
     }
 
-    val inputParsed get() = parse()
+    val parsedInput get() = parseInput()
 
     fun solve() {
-        kotlin.runCatching { println("$file partOne: ${part1(inputParsed)}") }
-        kotlin.runCatching { println("$file partTwo: ${part2(inputParsed)}") }
+        kotlin.runCatching { println("$file partOne: ${part1(parsedInput)}") }
+        kotlin.runCatching { println("$file partTwo: ${part2(parsedInput)}") }
     }
 
-    abstract fun parse(): R
+    abstract fun parseInput(): R
     abstract fun part1(input: R): Any?
     abstract fun part2(input: R): Any?
 

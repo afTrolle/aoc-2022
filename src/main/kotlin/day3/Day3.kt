@@ -22,7 +22,7 @@ class Day3(input: String) : Day<List<Day3.Rucksack>>(input) {
         else -> error("invalid char")
     }
 
-    override fun parse(): List<Rucksack> = inputByLines.map { Rucksack(it) }
+    override fun parseInput(): List<Rucksack> = inputByLines.map { Rucksack(it) }
 
     override fun part1(input: List<Rucksack>): Any = input.map { it.overlap }.flatten().sumOf { it.priority() }
 

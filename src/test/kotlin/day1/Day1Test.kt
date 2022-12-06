@@ -7,7 +7,7 @@ class Day1Test {
     @Test
     fun parseInput() {
         val day = Day1("Day01_sample.txt")
-        val result = day.inputParsed
+        val result = day.parsedInput
 
         val firstElf = result.first()
         assertEquals(6000, firstElf.sum())

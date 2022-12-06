@@ -10,7 +10,7 @@ fun main() {
 
 class Day4(input: String) : Day<List<Pair<IntRange, IntRange>>>(input) {
 
-    override fun parse(): List<Pair<IntRange, IntRange>> = inputByLines.map {
+    override fun parseInput(): List<Pair<IntRange, IntRange>> = inputByLines.map {
         val (a1, a2, b1, b2) = it.split(",", "-").map(String::toInt)
         a1..a2 to b1..b2
     }

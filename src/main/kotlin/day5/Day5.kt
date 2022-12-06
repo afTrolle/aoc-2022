@@ -11,7 +11,7 @@ class Day5(input: String) : Day<Pair<List<MutableList<Char>>, List<Day5.Action>>
 
     data class Action(val from: Int, val to: Int, val units: Int)
 
-    override fun parse(): Pair<List<MutableList<Char>>, List<Action>> {
+    override fun parseInput(): Pair<List<MutableList<Char>>, List<Action>> {
         val (init, actions) = inputByGroups
         val towerByRows = init.dropLast(1).map { line ->
             line.chunked(4).map { it[1].takeIf(Char::isLetter) }

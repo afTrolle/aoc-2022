@@ -11,17 +11,16 @@ class Day5(input: String) : Day<Pair<List<MutableList<Char>>, List<Day5.Action>>
 
     data class Action(val from: Int, val to: Int, val units: Int)
 
-    override fun parse(): Pair<List<ArrayDeque<Char>>, List<Action>> {
+    override fun parse(): Pair<List<MutableList<Char>>, List<Action>> {
         val (init, actions) = inputByGroups
         val towerByRows = init.dropLast(1).map { line ->
             line.chunked(4).map { it[1].takeIf(Char::isLetter) }
         }
         val numberOfTowers = init.last().split(" ").mapNotNull(String::toIntOrNull).max()
         val towers = List(numberOfTowers) { towerIndex ->
-            val all = towerByRows.mapNotNull {
+            towerByRows.mapNotNullTo(mutableListOf()) {
                 it.getOrNull(towerIndex)
             }
-            ArrayDeque(all)
         }
 
         val tasks = actions.map {

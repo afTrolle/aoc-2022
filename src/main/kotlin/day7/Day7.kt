@@ -10,7 +10,7 @@ fun main() {
     }
 }
 
-class Day7(input: String) : Day<List<Int>>(input) {
+class Day7(input: String) : Day<List<Day7.Dir>>(input) {
 
     class Dir(
         var filesSize: Int = 0,
@@ -18,35 +18,27 @@ class Day7(input: String) : Day<List<Int>>(input) {
         val parent: Dir? = null
     ) {
         val size: Int by lazy(NONE) { filesSize + dirs.values.sumOf { it.size } }
+        val allDirs: List<Dir> get() = listOf(this) + dirs.values.flatMap { it.allDirs }
     }
 
-    override fun parseInput(): List<Int> {
-        val dirs = mutableListOf(Dir())
-        var workspace = dirs.first()
-        inputByLines.forEach { line ->
+    override fun parseInput(): List<Dir> = Dir().also { root ->
+        inputByLines.map { it.split(" ") + "" }.fold(root) { workspace, (a, b, c) ->
             when {
-                line == "\$ ls" -> Unit
-                line == "\$ cd /" -> Unit
-                line == "\$ cd .." -> workspace = workspace.parent!!
-                line.startsWith("\$ cd ") -> workspace = line.drop(5).let { workspace.dirs[it]!! }
-                else -> line.split(" ").let { (sizeOrDir, name) ->
-                    if (sizeOrDir == "dir") Dir(parent = workspace).let {
-                        workspace.dirs[name] = it
-                        dirs.add(it)
-                    } else workspace.filesSize += sizeOrDir.toInt()
-                }
+                a == "\$" && b == "ls" -> workspace
+                a == "\$" && b == "cd" && c == "/" -> workspace
+                a == "\$" && b == "cd" && c == ".." -> workspace.parent!!
+                a == "\$" && b == "cd" -> workspace.dirs[c]!!
+                a == "dir" -> workspace.apply { dirs[b] = Dir(parent = workspace) }
+                else -> workspace.apply { filesSize += a.toInt() }
             }
         }
-        return dirs.map { it.size }
-    }
+    }.allDirs
 
-    override fun part1(input: List<Int>): Any = input.filter { it <= 100000 }.sum()
+    override fun part1(input: List<Dir>): Any = input.map { it.size }.filter { it <= 100000 }.sum()
 
-    override fun part2(input: List<Int>): Any {
-        val neededDiskSpace = 30000000 + input.first() - 70000000
-        return input.fold(Int.MAX_VALUE) { acc, dir ->
-            dir.takeIf { it in neededDiskSpace..acc } ?: acc
-        }
+    override fun part2(input: List<Dir>): Any {
+        val neededDiskSpace = 30000000 + input.first().size - 70000000
+        return input.map { it.size }.filter { it > neededDiskSpace }.min()
     }
 }
 

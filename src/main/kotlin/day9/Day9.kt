@@ -27,15 +27,13 @@ class Day9(input: String) : Day<List<Char>>(input) {
         this[point.height to point.width] = true
     }
 
-    fun Point.isTouching(head: Point): Boolean {
-        return head.height in (height - 1)..(height + 1) && head.width in (width - 1)..(width + 1)
-    }
+    fun Point.isTouching(head: Point): Boolean =
+        head.height in (height - 1)..(height + 1) && head.width in (width - 1)..(width + 1)
 
     fun Point.updateTail(head: Point) {
         if (!isTouching(head)) {
             height += (head.height - height).coerceIn(-1..1)
             width += (head.width - width).coerceIn(-1..1)
-
         }
     }
 

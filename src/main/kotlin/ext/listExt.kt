@@ -22,3 +22,27 @@ fun <E> MutableList<E>.removeWhile(predicate: (E) -> Boolean): List<E> {
     }
     return removed
 }
+
+inline fun <reified T> List<List<T>>.transpose(): List<List<T>> {
+    val cols = this[0].size
+    val rows = this.size
+    return List(cols) { col ->
+        List(rows) { row ->
+            this[row][col]
+        }
+    }
+}
+
+inline fun <reified T, reified R> List<T>.merge(
+    items: List<T>,
+    combine: (a: T, b: T) -> R
+): List<R> = mapIndexed { index, item ->
+    combine(item, items[index])
+}
+
+inline fun <reified T, reified R> List<List<T>>.mergeMatrix(
+    items: List<List<T>>,
+    combine: (a: T, b: T) -> R
+): List<List<R>> = merge(items) { a: List<T>, b: List<T> ->
+    a.merge(b, combine)
+}

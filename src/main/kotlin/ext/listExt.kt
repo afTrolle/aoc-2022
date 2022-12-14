@@ -11,6 +11,18 @@ inline fun CharSequence.indexOfFirstIndexed(predicate: (index: Int, Char) -> Boo
     return indexOfFirst { predicate(index++, it) }
 }
 
+fun <E, R> List<List<E>>.findInMatrix(selector: (row: Int, col: Int, E) -> R?): R? {
+    forEachIndexed { row, items ->
+        items.forEachIndexed { col, item ->
+            val found = selector.invoke(row, col, item)
+            if (found != null) {
+                return found
+            }
+        }
+    }
+    return null
+}
+
 fun <E> MutableList<E>.removeWhile(predicate: (E) -> Boolean): List<E> {
     val removed = mutableListOf<E>()
     for (index in indices) {

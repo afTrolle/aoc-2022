@@ -16,7 +16,7 @@ abstract class Day<R>(private val file: String) {
     val parsedInput get() = parseInput()
 
     fun solve() {
-        kotlin.runCatching { println("$file partOne: ${part1(parsedInput)}") }
+        println("$file partOne: ${part1(parsedInput)}")
         kotlin.runCatching { println("$file partTwo: ${part2(parsedInput)}") }
     }
 

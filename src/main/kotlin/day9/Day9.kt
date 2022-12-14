@@ -9,12 +9,13 @@ fun main() {
     }
 }
 
+data class Point(
+    var height: Int = 0,
+    var width: Int = 0
+)
+
 class Day9(input: String) : Day<List<Char>>(input) {
 
-    data class Point(
-        var height: Int = 0,
-        var width: Int = 0
-    )
 
     override fun parseInput() = inputByLines.map {
         val (a, b) = it.split(" ")
